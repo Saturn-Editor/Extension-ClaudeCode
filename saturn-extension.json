@@ -1,7 +1,7 @@
 {
   "id": "claudecode",
   "name": "Claude Code",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Claude Code integration for Saturn",
   "badge": "CC",
   "saturnApi": "^0.2",
@@ -25,8 +25,8 @@
       { "id": "claudecode.checkInstall", "title": "Claude Code: Check Installation" },
       { "id": "claudecode.refresh", "title": "Claude Code: Refresh Panel" }
     ],
-    "buttons": [{ "command": "claudecode.open", "title": "Claude Code", "badge": "CC", "icon": "build.svg" }],
-    "panels": [{ "id": "claudecode.panel", "title": "Claude Code", "dock": "left", "badge": "CC" }],
+    "buttons": [{ "command": "claudecode.open", "title": "Claude Code", "icon": "run-claude.svg" }],
+    "panels": [{ "id": "claudecode.panel", "title": "Claude Code", "dock": "left" }],
     "settings": [
       {
         "id": "claudePath",
