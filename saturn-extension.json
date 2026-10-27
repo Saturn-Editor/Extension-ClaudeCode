@@ -1,7 +1,7 @@
 {
   "id": "claudecode",
   "name": "Claude Code",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Claude Code integration for Saturn",
   "badge": "CC",
   "saturnApi": "^0.2",
@@ -20,6 +20,8 @@
       { "id": "claudecode.continue", "title": "Claude Code: Continue Last Session" },
       { "id": "claudecode.resume", "title": "Claude Code: Resume Session…" },
       { "id": "claudecode.usage", "title": "Claude Code: Usage" },
+      { "id": "claudecode.explainSelection", "title": "Claude Code: Explain Selection" },
+      { "id": "claudecode.explainFile", "title": "Claude Code: Explain This File" },
       { "id": "claudecode.openMemory", "title": "Claude Code: Open CLAUDE.md" },
       { "id": "claudecode.openSettings", "title": "Claude Code: Open Project Settings" },
       { "id": "claudecode.checkInstall", "title": "Claude Code: Check Installation" },

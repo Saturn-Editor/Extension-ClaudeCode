@@ -17,6 +17,8 @@ export function activate(api) {
   saturn.commands.register('claudecode.continue', ctx => launch(ctx, 'Claude Code', '--continue'));
   saturn.commands.register('claudecode.resume', ctx => launch(ctx, 'Claude Code', '--resume'));
   saturn.commands.register('claudecode.usage', ctx => launch(ctx, 'Claude Usage', '/usage'));
+  saturn.commands.register('claudecode.explainSelection', ctx => explain(ctx, true));
+  saturn.commands.register('claudecode.explainFile', ctx => explain(ctx, false));
   saturn.commands.register('claudecode.openMemory', ctx => openOrCreate(ctx, 'CLAUDE.md', '# CLAUDE.md\n'));
   saturn.commands.register('claudecode.openSettings', ctx =>
     openOrCreate(ctx, path.join('.claude', 'settings.json'), '{}\n'),
@@ -98,6 +100,42 @@ function launch(ctx, name, ...args) {
     return;
   }
   saturn.terminal.run(ctx.projectPath, { name, command: claudeCommand(...args) });
+}
+
+// ---- Editor context ----
+
+// The active file as an @-mention Claude Code understands, with the selected lines when there are any.
+function activeFileMention(ctx, withSelection) {
+  if (!ctx?.projectPath) {
+    saturn.window.showMessage('Open a project first.', { kind: 'warning' });
+    return null;
+  }
+  const file = saturn.editor?.activeFile(ctx.projectPath);
+  if (!file) {
+    const why = saturn.editor ? 'Open a file first.' : 'This version of Saturn does not share editor state with extensions.';
+    saturn.window.showMessage(why, { kind: 'warning', projectPath: ctx.projectPath });
+    return null;
+  }
+  let mention = `@${path.relative(ctx.projectPath, file.path).split(path.sep).join('/')}`;
+  const sel = file.selection;
+  if (withSelection && sel && sel.text) {
+    const start = sel.start.line + 1;
+    // A selection ending at the start of a line doesn't include that line.
+    const end = sel.end.character === 0 && sel.end.line > sel.start.line ? sel.end.line : sel.end.line + 1;
+    mention += start === end ? `#L${start}` : `#L${start}-${end}`;
+  }
+  if (file.dirty) {
+    saturn.window.showMessage('The file has unsaved changes; Claude Code reads the saved version.', {
+      kind: 'warning',
+      projectPath: ctx.projectPath,
+    });
+  }
+  return mention;
+}
+
+function explain(ctx, withSelection) {
+  const mention = activeFileMention(ctx, withSelection);
+  if (mention) launch(ctx, 'Claude Code', `Explain ${mention}`);
 }
 
 function checkInstall(ctx) {
