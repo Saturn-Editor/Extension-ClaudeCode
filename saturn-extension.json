@@ -1,0 +1,84 @@
+{
+  "id": "claudecode",
+  "name": "Claude Code",
+  "version": "1.0.0",
+  "description": "Claude Code integration for Saturn",
+  "badge": "CC",
+  "saturnApi": "^0.2",
+  "main": "extension.js",
+  "requires": [
+    {
+      "name": "Claude Code CLI",
+      "command": "claude",
+      "args": ["--version"],
+      "install": "Install with npm i -g @anthropic-ai/claude-code"
+    }
+  ],
+  "contributes": {
+    "commands": [
+      { "id": "claudecode.open", "title": "Claude Code: Open" },
+      { "id": "claudecode.continue", "title": "Claude Code: Continue Last Session" },
+      { "id": "claudecode.resume", "title": "Claude Code: Resume Session…" },
+      { "id": "claudecode.usage", "title": "Claude Code: Usage" },
+      { "id": "claudecode.openMemory", "title": "Claude Code: Open CLAUDE.md" },
+      { "id": "claudecode.openSettings", "title": "Claude Code: Open Project Settings" },
+      { "id": "claudecode.checkInstall", "title": "Claude Code: Check Installation" },
+      { "id": "claudecode.refresh", "title": "Claude Code: Refresh Panel" }
+    ],
+    "buttons": [{ "command": "claudecode.open", "title": "Claude Code", "badge": "CC", "icon": "build.svg" }],
+    "panels": [{ "id": "claudecode.panel", "title": "Claude Code", "dock": "left", "badge": "CC" }],
+    "settings": [
+      {
+        "id": "claudePath",
+        "label": "Claude executable",
+        "type": "file",
+        "default": "claude",
+        "description": "Path to the claude CLI. Leave as 'claude' to use the one on PATH."
+      },
+      {
+        "id": "model",
+        "label": "Model",
+        "type": "select",
+        "default": "",
+        "options": [
+          { "value": "", "label": "CLI default" },
+          { "value": "opus", "label": "Opus" },
+          { "value": "sonnet", "label": "Sonnet" },
+          { "value": "haiku", "label": "Haiku" }
+        ]
+      },
+      {
+        "id": "permissionMode",
+        "label": "Permission mode",
+        "type": "select",
+        "default": "",
+        "options": [
+          { "value": "", "label": "CLI default" },
+          { "value": "acceptEdits", "label": "Accept edits" },
+          { "value": "plan", "label": "Plan" },
+          { "value": "auto", "label": "Auto" }
+        ]
+      },
+      {
+        "id": "extraArgs",
+        "label": "Extra arguments",
+        "type": "text",
+        "default": "",
+        "description": "Appended to every claude command started from the Run menu."
+      },
+      {
+        "id": "recentSessions",
+        "label": "Recent sessions to show",
+        "type": "select",
+        "default": "5",
+        "options": [
+          { "value": "0", "label": "None" },
+          { "value": "5", "label": "5" },
+          { "value": "10", "label": "10" },
+          { "value": "20", "label": "20" }
+        ]
+      }
+    ],
+    "runConfigurations": true
+  }
+}
