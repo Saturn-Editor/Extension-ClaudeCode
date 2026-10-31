@@ -1,11 +1,12 @@
 {
   "id": "claudecode",
   "name": "Claude Code",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Claude Code integration for Saturn",
   "badge": "CC",
-  "saturnApi": "^0.2",
+  "saturnApi": "^1.0",
   "main": "extension.js",
+  "startup": "onLaunch",
   "requires": [
     {
       "name": "Claude Code CLI",
